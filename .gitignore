@@ -1,0 +1,92 @@
+first variant
+//Одномерный массив из 12 элементов заполнить случайными положительными и отрицательными значениями. Найти элемент, наиболее близкий к среднему значению всех элементов массива. 
+
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+void main()
+{
+	cout << "<Biriukov_Oleksandr_25PR> " << endl;
+	const int arr_size = 12;
+	int arr[arr_size] = {0};
+	unsigned long seed = time(NULL);
+	srand(seed);
+	int sum = 0;
+
+	for (int i = 0; i <= arr_size; i++)
+	{
+		arr[i] = rand() % (100 + 100) - 100;
+		sum += arr[i];
+		cout << arr[i] << " ";
+	}
+
+	int med_ar = sum / arr_size;
+	cout << med_ar << " " << endl;
+	int delta = 100;
+	int indx = 0;
+	
+	for(int i = 0; i < arr_size; i++)
+	{
+		int t_delta = arr[i] >= med_ar ? arr[i] - med_ar : med_ar - arr[i];
+		if (t_delta < delta)
+		{
+			delta = t_delta;
+			indx = i;
+		}
+	}
+	cout << "Sr: " << indx << "\nBlizkoe: " << arr[indx] << endl;
+
+	system("pause");
+}
+
+
+
+second variant
+//Одномерный массив из 12 элементов заполнить случайными положительными и отрицательными значениями. Найти элемент, наиболее близкий к среднему значению всех элементов массива. 
+#include <iostream>
+using namespace std;
+#include <time.h>
+void main(){
+	srand((unsigned int) time(NULL));
+
+	const int arr_size = 12;
+	int arr[arr_size] = {0};
+	// заполнение
+	for(int i = 0; i < arr_size; i++){
+		arr[i] = rand() % 100 - 50;
+	}
+
+	// вывод массива
+	for(int i = 0; i < arr_size; i++){
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+
+	// подсчет суммы
+	int sum = 0;
+	for(int i = 0; i < arr_size; i++)
+		sum += arr[i];
+	
+	int avg = sum / arr_size;
+	// вывод результата
+	cout << "Avg:" << avg << endl;
+	
+	/*
+	cout << abs(0) << endl;
+	cout << abs(35) << endl;
+	cout << abs(-56) << endl;
+	*/
+
+	int value = arr[0];
+	for(int i = 1; i < arr_size; i++)
+		if( abs(avg - arr[i]) < abs(avg - value))
+		if(((avg < arr[i])? arr[i] - avg : avg - arr[i]) <= 
+			((avg < value)? value - avg : avg - value))
+			value = arr[i];
+
+	cout << "Value:" << value << endl;
+
+	system("pause");
+
+}
